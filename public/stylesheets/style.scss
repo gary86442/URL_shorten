@@ -1,0 +1,24 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+header {
+  div {
+    margin: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    h1 {
+      flex: auto;
+      margin-bottom: 2rem;
+    }
+    img {
+      flex: auto;
+      width: auto;
+      height: 50%;
+    }
+  }
+}

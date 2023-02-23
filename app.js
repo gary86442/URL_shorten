@@ -9,6 +9,7 @@ const port = 3000;
 app.engine("hbs", exphbs.engine({ defaultLayout: "main", extname: ".hbs" }));
 app.set("view engine", "hbs");
 app.use(routes);
+app.use(express.static("public"));
 
 // server listening
 app.listen(port, () => {
