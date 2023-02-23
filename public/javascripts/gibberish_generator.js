@@ -9,5 +9,5 @@ let res = "";
 for (let i = 0; i < 5; i++) {
   res += collection[Math.ceil(Math.random() * 62)];
 }
-console.log(res);
+
 module.exports = res;

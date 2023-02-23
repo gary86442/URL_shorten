@@ -2,8 +2,8 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const routes = require("./routes");
 const app = express();
-
 const port = 3000;
+require("./config/mongoose");
 
 // setting template engine
 app.engine("hbs", exphbs.engine({ defaultLayout: "main", extname: ".hbs" }));
