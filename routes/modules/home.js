@@ -31,6 +31,10 @@ router.post("/", (req, res) => {
           }
         });
       }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.render("error", { error });
     });
   // }
 });
@@ -39,9 +43,14 @@ router.post("/", (req, res) => {
 router.get("/:shorten", (req, res) => {
   const shorten = req.params.shorten;
   if (shorten !== "favicon.ico") {
-    LinksDB.findOne({ shorten }).then((links) => {
-      res.redirect(`${links.origin}`);
-    });
+    LinksDB.findOne({ shorten })
+      .then((links) => {
+        res.redirect(`${links.origin}`);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.render("error", { error });
+      });
   }
 });
 module.exports = router;
