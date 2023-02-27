@@ -25,12 +25,8 @@ router.post("/", (req, res) => {
           //如果短網址找不到資料則新增資料。
           if (!links) {
             // IsShortenDuplicated = false;
-            LinksDB.create({ origin, shorten }).then(() => {
-              LinksDB.findOne({ origin })
-                .lean()
-                .then((links) => {
-                  res.render("index", { links });
-                });
+            LinksDB.create({ origin, shorten }).then((links) => {
+              res.render("index", { links });
             });
           }
         });
