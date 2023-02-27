@@ -1,5 +1,5 @@
 const LinksDB = require("../links");
-const db = require("../../config/mogoose");
+const db = require("../../config/mongoose");
 const data = [
   {
     origin: "https://www.google.com/",
