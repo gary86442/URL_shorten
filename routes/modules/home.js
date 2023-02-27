@@ -14,7 +14,7 @@ router.post("/", (req, res) => {
     .then((links) => {
       // 如果有 直接輸出舊有的資料
       if (links) {
-        res.render("show", { links });
+        res.render("index", { links });
       } else {
         // 沒建過，生成短網址(要判斷生成出的短網址是否重複)  因非同步問題先跳過功能
         // let IsShortenDuplicated = true;
@@ -29,7 +29,7 @@ router.post("/", (req, res) => {
               LinksDB.findOne({ origin })
                 .lean()
                 .then((links) => {
-                  res.render("show", { links });
+                  res.render("index", { links });
                 });
             });
           }
