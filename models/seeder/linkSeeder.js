@@ -1,5 +1,5 @@
 const LinksDB = require("../links");
-const db = require("../../config/mogoose");
+const db = require("../../config/mongoose");
 const data = [
   {
     origin: "https://www.google.com/",
@@ -15,5 +15,7 @@ const data = [
   },
 ];
 db.once("open", () => {
-  LinksDB.create(data).then(() => console.log("Seeder is done"));
+  LinksDB.create(data)
+    .then(() => console.log("Seeder is done"))
+    .catch((error) => console.log(error));
 });

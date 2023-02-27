@@ -20,20 +20,24 @@ router.post("/", (req, res) => {
         let IsShortenDuplicated = true;
         while (IsShortenDuplicated) {
           const shorten = require("../../public/javascripts/gibberish_generator");
-          // console.log(shorten);
-          LinksDB.findOne({ shorten }).then((links) => {
-            //如果短網址找不到資料則新增資料。
-            if (!links) {
-              IsShortenDuplicated = false;
-              LinksDB.create({ origin, shorten }).then(() => {
-                LinksDB.findOne({ origin })
-                  .lean()
-                  .then((links) => {
-                    res.render("index", { links });
-                  });
-              });
-            }
-          });
+          console.log(shorten);
+          async function newShorten() {
+            await LinksDB.findOne({ shorten }).then((links) => {
+              console.log("TEST");
+              //如果短網址找不到資料則新增資料。
+              if (!links) {
+                IsShortenDuplicated = false;
+                LinksDB.create({ origin, shorten }).then(() => {
+                  LinksDB.findOne({ origin })
+                    .lean()
+                    .then((links) => {
+                      res.render("index", { links });
+                    });
+                });
+              }
+            });
+          }
+          newShorten();
         }
       }
     });
