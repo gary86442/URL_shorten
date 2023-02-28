@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const LinksDB = require("../../models/links");
+const gibberishGenerator = require("../../public/javascripts/gibberish_generator");
 router.get("/", (req, res) => {
   res.render("index");
 });
@@ -35,10 +36,10 @@ router.post("/", (req, res) => {
           let isShortenRepeat = true;
           let shorten;
           while (isShortenRepeat) {
-            shorten = require("../../public/javascripts/gibberish_generator");
-            const links = await LinksDB.findOne({ shorten }).lean();
+            shorten = gibberishGenerator();
+            let links = await LinksDB.findOne({ shorten }).lean();
             if (!links) {
-              isShortenInDB = false;
+              isShortenRepeat = false;
               await LinksDB.create({ origin, shorten });
               const leanData = await LinksDB.findOne({ origin }).lean();
               res.render("index", { links: leanData });
