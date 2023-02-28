@@ -19,4 +19,32 @@ router.get("/:shorten", (req, res) => {
     reductionUrl(shorten);
   }
 });
+
+router.post("/", (req, res) => {
+  const origin = req.body.url;
+  isOriginInDB(origin);
+  //確認是否有建立過
+  async function isOriginInDB(origin) {
+    const links = await LinksDB.findOne({ origin }).lean();
+    if (links) {
+      res.render("index", { links });
+    } else {
+      isShortenInDB();
+      async function isShortenInDB() {
+        let isShortenRepeat = true;
+        let shorten;
+        while (isShortenRepeat) {
+          shorten = require("../../public/javascripts/gibberish_generator");
+          const links = await LinksDB.findOne({ shorten }).lean();
+          if (!links) {
+            isShortenInDB = false;
+            await LinksDB.create({ origin, shorten });
+            const newData = await LinksDB.findOne({ origin }).lean();
+            await res.render("index", { links: newData });
+          }
+        }
+      }
+    }
+  }
+});
 module.exports = router;

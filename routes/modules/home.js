@@ -18,8 +18,9 @@ router.post("/", (req, res) => {
       } else {
         // 沒建過，生成短網址(要判斷生成出的短網址是否重複)  因非同步問題先跳過功能
         let IsShortenDuplicated = true;
+        let shorten;
         while (IsShortenDuplicated) {
-          const shorten = require("../../public/javascripts/gibberish_generator");
+          shorten = require("../../public/javascripts/gibberish_generator");
           console.log(shorten);
           async function newShorten() {
             await LinksDB.findOne({ shorten }).then((links) => {
