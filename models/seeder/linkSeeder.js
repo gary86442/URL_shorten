@@ -15,5 +15,7 @@ const data = [
   },
 ];
 db.once("open", () => {
-  LinksDB.create(data).then(() => console.log("Seeder is done"));
+  LinksDB.create(data)
+    .then(() => console.log("Seeder is done"))
+    .catch((error) => console.log(error));
 });
